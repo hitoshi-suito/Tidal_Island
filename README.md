@@ -6,7 +6,7 @@ Tidal Island
 今や空間は、オンラインで世界中に作り出されています。  
 このアプリは「時間」に着目しました。  
 〜早朝・朝・昼・夕方・夜・深夜〜  
-毎日決まった時間に30分間だけ、空間が現れます。  
+日に6度、決まった時間に30分間だけ、空間が現れます。  
 生活リズムが合っているという共通点のある人と、ほんの少しの間だけ、コミュニケーションを取ってみましょう。
 
 # バージョン
@@ -19,7 +19,6 @@ Ruby on Rails 5.2.5
   * 名前、メールアドレス、パスワードは必須
 * ログイン機能
 * ブログ投稿機能
-* ブログ検索機能
 * コメント機能
   * コメント作成、編集、削除
   * （絵文字でリアクションする機能）
@@ -43,17 +42,19 @@ https://cacoo.com/diagrams/Aq0bVb0Sgl4fJ9br/1635F
 # 使用予定Gem
 * bcrypt
 * device
-* ransack
+* rails_admin
+* cancancan
+* carrierwave
+* mini_magic
 * rspec-rails
 * factory_bot_rails
 * capybara
 * webdrivers
-* carrierwave
-* mini_magic
 
 # 就業タームから使用する技術
 * コメント機能（編集や削除もできること。投稿失敗時にエラーメッセージをAjaxで出力すること）
 * devise
 
 # カリキュラム外から使用する技術
-* ransack
+* rails_admin
+* cancancan
