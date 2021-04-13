@@ -42,8 +42,6 @@ https://cacoo.com/diagrams/Aq0bVb0Sgl4fJ9br/1635F
 # 使用予定Gem
 * bcrypt
 * device
-* rails_admin
-* cancancan
 * carrierwave
 * mini_magic
 * rspec-rails
@@ -56,5 +54,4 @@ https://cacoo.com/diagrams/Aq0bVb0Sgl4fJ9br/1635F
 * devise
 
 # カリキュラム外から使用する技術
-* rails_admin
-* cancancan
+* ransack
