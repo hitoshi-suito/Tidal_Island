@@ -48,6 +48,7 @@ https://cacoo.com/diagrams/Aq0bVb0Sgl4fJ9br/1635F
 * factory_bot_rails
 * capybara
 * webdrivers
+* letter_opener_web
 
 # 就業タームから使用する技術
 * コメント機能（編集や削除もできること。投稿失敗時にエラーメッセージをAjaxで出力すること）
