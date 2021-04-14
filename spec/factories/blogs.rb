@@ -3,7 +3,5 @@ FactoryBot.define do
     title { "MyString" }
     content { "MyText" }
     image { "MyText" }
-    user { nil }
-    tide { nil }
   end
 end
