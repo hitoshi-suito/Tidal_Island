@@ -10,7 +10,7 @@ class BlogsController < ApplicationController
   def create
     @blog = Blog.new(blog_params)
     if @blog.save
-      redirect_to blogs_path, notice: 'ブログを作成しました'
+      redirect_to blogs_path, notice: "ブログを作成しました"
     else
       render :new
     end
