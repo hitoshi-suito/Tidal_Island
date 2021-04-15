@@ -13,6 +13,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
+gem 'devise-i18n'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'mimemagic', '0.3.7'
