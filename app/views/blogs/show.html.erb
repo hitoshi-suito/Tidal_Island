@@ -3,3 +3,10 @@
 <p>タイトル: <%= @blog.title %></p>
 <p>内容: <%= @blog.content %></p>
 <p>画像: <%= image_tag @blog.image.to_s %></p>
+
+<p>コメント一覧</p>
+<div id="comments_area">
+  <%= render partial: 'comments/index', locals: {comment: @comment, blog: @blog} %>
+</div>
+<%= render partial: 'comments/form', locals: { comment: @comment, blog: @blog } %>
+<%= link_to '戻る', blogs_path %>

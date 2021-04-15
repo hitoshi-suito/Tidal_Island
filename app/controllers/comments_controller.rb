@@ -2,11 +2,12 @@ class CommentsController < ApplicationController
   def create
     @blog = Blog.find(params[:blog_id])
     @comment = @blog.comments.build(comment_params)
+    @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
-        format.html{ redirect_to blog_path(@blog.id) }
+        format.js{ redirect_to blog_path(@blog.id) }
       else
-        format.html{ redirect_to blog_path(@blog.id) }, notice: '投稿できませんでした'
+        format.html{ redirect_to blog_path(@blog.id), notice: '投稿できませんでした' }
       end
     end
   end
