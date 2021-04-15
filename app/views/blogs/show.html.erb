@@ -1,4 +1,4 @@
 <h1>ブログ詳細画面</h1>
 <p>タイトル: <%= @blog.title %></p>
 <p>内容: <%= @blog.content %></p>
-<p>画像: <%= @blog.image %></p>
+<p>画像: <%= image_tag @blog.image.to_s %></p>
