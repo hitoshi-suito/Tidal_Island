@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
-        format.js{ redirect_to blog_path(@blog.id) }
+        format.js{ render :index }
       else
         format.html{ redirect_to blog_path(@blog.id), notice: '投稿できませんでした' }
       end

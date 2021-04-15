@@ -1,5 +1,5 @@
 <ul>
-  <% @comments.each do |comment| %>
+  <% comments.each do |comment| %>
     <% if comment.id.present? %>
       <li>
         <p><%= comment.content %></p>
