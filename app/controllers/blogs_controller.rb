@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   def index
     @blogs = Blog.all
-    
+
     @q = Blog.ransack(params[:q])
     @blogs = @q.result(distinct: true)
   end
@@ -22,6 +22,9 @@ class BlogsController < ApplicationController
   end
 
   def edit
+    if @blog.user_id != current_user.id
+      redirect_to blogs_path, notice: '投稿したユーザのみ編集できます'
+    end
   end
 
   def update
