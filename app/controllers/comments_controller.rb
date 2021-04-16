@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
     @comment = @blog.comments.find(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
-        flash.now[:notice] = 'コメントが更新されました'
+        flash.now[:notice] = 'コメントが編集されました'
         format.js { render :index }
       else
         flash.now[:notice] = 'コメントの編集ができませんでした'
