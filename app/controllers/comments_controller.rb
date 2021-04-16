@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
         flash.now[:notice] = 'コメントが編集されました'
         format.js { render :index }
       else
-        flash.now[:notice] = 'コメントの編集ができませんでした'
+        flash.now[:notice] = '編集できませんでした'
         format.js { render :edit_error }
       end
     end

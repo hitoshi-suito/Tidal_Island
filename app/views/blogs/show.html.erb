@@ -3,7 +3,7 @@
 <p>タイトル: <%= @blog.title %></p>
 <p>内容: <%= @blog.content %></p>
 <% if @blog.image.present? %>
-  <p>画像: <%= image_tag @blog.image.to_s %></p>
+  <p>画像: <%= image_tag @blog.image.url %></p>
 <% end %>
 <p>---コメント---</p>
 <div id="comments_area">
