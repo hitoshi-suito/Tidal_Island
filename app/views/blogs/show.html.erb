@@ -1,11 +1,11 @@
-<h1>ブログ詳細画面</h1>
 <p id="notice"><%= notice %></p>
-<h3>投稿ユーザ: <%= @blog.user.name %></h3>
+<p>投稿ユーザ: <%= @blog.user.name %></p>
 <p>タイトル: <%= @blog.title %></p>
 <p>内容: <%= @blog.content %></p>
-<p>画像: <%= image_tag @blog.image.to_s %></p>
-
-<p>コメント一覧</p>
+<% if @blog.image.present? %>
+  <p>画像: <%= image_tag @blog.image.to_s %></p>
+<% end %>
+<p>---コメント---</p>
 <div id="comments_area">
   <%= render partial: 'comments/index', locals: {comments: @comments, blog: @blog} %>
 </div>
