@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_blog, only: [:create, :edit, :update, :destroy]
-  
+  before_action :set_comment, only: [:edit, :update, :destroy]
   def create
     @comment = @blog.comments.build(comment_params)
     @comment.user_id = current_user.id
@@ -14,7 +14,6 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = @blog.comments.find(params[:id])
     respond_to do |format|
       flash.now[:notice] = 'コメントの編集中'
       format.js { render :edit }
@@ -22,7 +21,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = @blog.comments.find(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
         flash.now[:notice] = 'コメントが編集されました'
@@ -35,7 +33,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @blog.comments.find(params[:id])
     @comment.destroy
     respond_to do |format|
       flash.now[:notice] = 'コメントを削除しました'
@@ -51,5 +48,9 @@ class CommentsController < ApplicationController
 
   def set_blog
     @blog = Blog.find(params[:blog_id])
+  end
+
+  def set_comment
+    @comment = @blog.comments.find(params[:id])
   end
 end
