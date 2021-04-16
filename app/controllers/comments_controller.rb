@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_blog, only: [:create, :edit, :update]
+  before_action :set_blog, only: [:create, :edit, :update, :destroy]
   
   def create
     @comment = @blog.comments.build(comment_params)
@@ -33,6 +33,16 @@ class CommentsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    @comment = @blog.comments.find(params[:id])
+    @comment.destroy
+    respond_to do |format|
+      flash.now[:notice] = 'コメントを削除しました'
+      format.js { render :index }
+    end 
+  end
+
 
   private
   def comment_params
