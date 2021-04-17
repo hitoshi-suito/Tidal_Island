@@ -13,7 +13,9 @@ class BlogsController < ApplicationController
   end
 
   def create
+    @tide = Tide.insert_column
     @blog = current_user.blogs.build(blog_params)
+    @blog.tide_id = @tide.id
     if @blog.save
       redirect_to blogs_path, notice: 'ブログを作成しました'
     else
