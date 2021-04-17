@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   devise_for :users
-  root to: "blogs#index"
+  root to: "tides#index"
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   
