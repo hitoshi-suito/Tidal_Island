@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'tides/index'
   resources :blogs do
     resources :comments
   end
