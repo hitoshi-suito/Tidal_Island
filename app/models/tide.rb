@@ -1,5 +1,6 @@
 class Tide < ApplicationRecord
   has_many :blogs, dependent: :destroy
+  
   def self.insert_column
     # tide = Tide.create(low_start_at: '0:30', low_end_at: '1:00', current_time: Time.now)
     # tide = Tide.create(low_start_at: '4:00', low_end_at: '4:30', current_time: Time.now)
