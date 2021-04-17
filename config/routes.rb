@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'tides/index'
+  resources :tides, only: [:index]
   resources :blogs do
     resources :comments
   end
