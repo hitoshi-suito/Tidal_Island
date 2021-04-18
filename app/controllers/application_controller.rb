@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   
-  Tide.insert_column
+  # Tide.insert_column
+  # Tide.admin_insert_column
 
   protected
   def configure_permitted_parameters

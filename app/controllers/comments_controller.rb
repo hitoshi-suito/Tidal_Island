@@ -1,12 +1,10 @@
 class CommentsController < ApplicationController
   before_action :set_blog, only: [:create, :edit, :update, :destroy]
   before_action :set_comment, only: [:edit, :update, :destroy]
-  # before_action :authenticate_user!, only: [:edit, :update, :destroy]
   def create
     @comment = @blog.comments.build(comment_params)
     @comment.user_id = current_user.id
     respond_to do |format|
-      # binding.pry
       if @comment.save
         format.js { render :index }
       else

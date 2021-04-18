@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tides, only: [:index]
+  resources :tides, only: [:index, :create]
   resources :blogs do
     resources :comments
   end

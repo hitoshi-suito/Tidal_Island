@@ -2,11 +2,18 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   def index
-    @tide = Tide.insert_column
-    if @tide.low_start_at < @tide.current_time && @tide.current_time < @tide.low_end_at
+    if user_signed_in? && current_user.admin == true
+      @tide = Tide.create!(low_start_at: '1999-12-31 15:00:00', low_end_at: '1999-12-31 15:00:00', current_time: '1999-12-31 15:00:00')
+      if @tide.low_start_at == @tide.current_time && @tide.current_time == @tide.low_end_at
       @blogs = Blog.all
+      end
     else
-      redirect_to tides_path
+      @tide = Tide.insert_column
+      if @tide.low_start_at < @tide.current_time && @tide.current_time < @tide.low_end_at
+        @blogs = Blog.all
+      else
+        redirect_to tides_path
+      end
     end
 
     @q = Blog.ransack(params[:q])

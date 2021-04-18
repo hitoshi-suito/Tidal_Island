@@ -8,6 +8,10 @@ class Tide < ApplicationRecord
     # tide = Tide.create(low_start_at: '12:00', low_end_at: '12:30', current_time: Time.now)
     # tide = Tide.create(low_start_at: '17:00', low_end_at: '17:30', current_time: Time.now)
     # tide = Tide.create(low_start_at: '19:00', low_end_at: '19:30', current_time: Time.now)
-    tide = Tide.create(low_start_at: '10:00', low_end_at: '23:00', current_time: Time.now)
+    tide = Tide.create(low_start_at: '0:00', low_end_at: '12:10', current_time: Time.now)
   end
+
+  # def self.admin_insert_column
+  #   tide = Tide.create(low_start_at: '0:00', low_end_at: '23:59', current_time: Time.now)
+  # end
 end

@@ -1,1 +1,4 @@
+<% if user_signed_in? && current_user.admin == true %>
+  <%= link_to 'ブログ一覧', blogs_path %>
+<% end %>
 <p>次にログインできるのは17:00です...</p>
