@@ -38,11 +38,16 @@ ActiveRecord::Schema.define(version: 2021_04_17_053451) do
   end
 
   create_table "tides", force: :cascade do |t|
-    t.time "low_start_at"
-    t.time "low_end_at"
-    t.time "current_time"
+    t.integer "low_start_hour"
+    t.integer "low_start_min"
+    t.integer "low_end_hour"
+    t.integer "low_end_min"
+    t.integer "year"
+    t.integer "month"
+    t.integer "day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["low_start_hour", "low_start_min", "low_end_hour", "low_end_min", "year", "month", "day"], name: "tides_unique_index", unique: true
   end
 
   create_table "users", force: :cascade do |t|
