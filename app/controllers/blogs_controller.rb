@@ -4,8 +4,10 @@ class BlogsController < ApplicationController
   def index
     @tide = Tide.find_closest
     @blogs = @tide.blogs
-    # @q = Blog.ransack(params[:q])
-    # @blogs = @q.result(distinct: true)
+
+    @q = Blog.ransack(params[:q])
+    @blogs = @q.result(distinct: true)
+  
     redirect_to tides_path unless (user_signed_in? && current_user.admin == true) || @tide.opening?
   end
 
@@ -14,7 +16,7 @@ class BlogsController < ApplicationController
   end
 
   def create
-    @tide = Tide.insert_column
+    @tide = Tide.find_closest
     @blog = current_user.blogs.build(blog_params)
     @blog.tide_id = @tide.id
     if @blog.save
@@ -44,11 +46,8 @@ class BlogsController < ApplicationController
   end
 
   def destroy
-    if @blog.destroy
-      redirect_to blogs_path, notice: 'ブログを削除しました'
-    else
-      render
-    end
+    @blog.destroy
+    redirect_to blogs_path, notice: 'ブログを削除しました'
   end
 
   private

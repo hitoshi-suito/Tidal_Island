@@ -25,15 +25,15 @@ class Tide < ApplicationRecord
     !self.finished?
   end
 
-  def self.today_params
-    now = Time.now
-    return { year: now.year, month: now.month, day: now.day }
-  end
-
   def self.find_closest
     tides = self.refresh_and_find_todays
     unfinisheds = tides.select(&:unfinished?)
     return unfinisheds.first
+  end
+
+  def self.today_params
+    now = Time.now
+    return { year: now.year, month: now.month, day: now.day }
   end
 
   def self.refresh_and_find_todays
@@ -115,28 +115,20 @@ class Tide < ApplicationRecord
       ),
       Tide.find_by(
         today_params.merge(
-          low_start_hour: 19,
+          low_start_hour: 22,
           low_start_min: 0,
-          low_end_hour: 19,
+          low_end_hour: 23,
           low_end_min: 30
         )
       ) || Tide.create(
         today_params.merge(
-          low_start_hour: 19,
+          low_start_hour: 22,
           low_start_min: 0,
-          low_end_hour: 19,
+          low_end_hour: 23,
           low_end_min: 30
         )
       )
     ]
     return tides
   end
-# binding.pry
-  
-
-  
-
-  # def self.admin_insert_column
-  #   tide = Tide.create(low_start_at: '0:00', low_end_at: '23:59', current_time: Time.now)
-  # end
 end

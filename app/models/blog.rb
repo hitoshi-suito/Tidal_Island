@@ -1,5 +1,5 @@
 class Blog < ApplicationRecord
-  belongs_to :tide, dependent: :destroy
+  belongs_to :tide
   belongs_to :user
   has_many :comments, dependent: :destroy
   
