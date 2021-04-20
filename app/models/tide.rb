@@ -129,14 +129,14 @@ class Tide < ApplicationRecord
           today_params.merge(
             low_start_hour: 10,
             low_start_min: 0,
-            low_end_hour: 22,
+            low_end_hour: 23,
             low_end_min: 20
           )
         ) || Tide.create(
           today_params.merge(
             low_start_hour: 10,
             low_start_min: 0,
-            low_end_hour: 22,
+            low_end_hour: 23,
             low_end_min: 20
           )
         )

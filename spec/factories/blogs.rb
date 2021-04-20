@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :blog do
-    title { "MyString" }
-    content { "MyText" }
-    image { "MyText" }
+    title { "blog" }
+    content { "test" }
   end
 end
