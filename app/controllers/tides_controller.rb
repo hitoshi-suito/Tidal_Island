@@ -1,4 +1,5 @@
 class TidesController < ApplicationController
+# before_action :destroy, only: [:index]
   def index
     @tide = Tide.find_closest
     if @tide.opening?

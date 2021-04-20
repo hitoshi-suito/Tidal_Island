@@ -1,13 +1,15 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  # before_action :destroy_all, only: [:index]
   def index
     @tide = Tide.find_closest
     @blogs = @tide.blogs
+    # binding.pry
 
     @q = Blog.ransack(params[:q])
     @blogs = @q.result(distinct: true)
-  
+
     redirect_to tides_path unless (user_signed_in? && current_user.admin == true) || @tide.opening?
   end
 
@@ -17,6 +19,7 @@ class BlogsController < ApplicationController
 
   def create
     @tide = Tide.find_closest
+    # binding.pry
     @blog = current_user.blogs.build(blog_params)
     @blog.tide_id = @tide.id
     if @blog.save
@@ -49,6 +52,15 @@ class BlogsController < ApplicationController
     @blog.destroy
     redirect_to blogs_path, notice: 'ブログを削除しました'
   end
+
+  # def destroy_all
+  #   @tide = Tide.find_closest
+  #   @blogs = @tide.blogs
+  #   # binding.pry
+  #   if @tide.finished?
+  #     @blogs.destroy_all
+  #   end
+  # end
 
   private
   def blog_params

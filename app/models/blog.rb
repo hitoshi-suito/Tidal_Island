@@ -10,3 +10,7 @@ class Blog < ApplicationRecord
   mount_uploader :image, ImageUploader
 
 end
+
+# def validates(method_name, length: 0, ...)
+
+# end
