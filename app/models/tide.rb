@@ -127,21 +127,21 @@ class Tide < ApplicationRecord
         # )
       Tide.find_by(
           today_params.merge(
-            low_start_hour: 10,
+            low_start_hour: 0,
             low_start_min: 0,
             low_end_hour: 23,
             low_end_min: 59
           )
         ) || Tide.create(
           today_params.merge(
-            low_start_hour: 10,
+            low_start_hour: 0,
             low_start_min: 0,
             low_end_hour: 23,
             low_end_min: 59
           )
         )
       ]
-      # return tides
+      return tides
     end
 
     def find_closest
