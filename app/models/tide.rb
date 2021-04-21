@@ -3,26 +3,25 @@ class Tide < ApplicationRecord
 
   def low_start_at
     Time.mktime(self.year, self.month, self.day, self.low_start_hour, self.low_start_min)
-    # binding.pry
   end
 
   def low_end_at
     Time.mktime(self.year, self.month, self.day, self.low_end_hour, self.low_end_min)
   end
 
-  def started?
+  def started? # Tide時間が開始しているか確認
     Time.now >= self.low_start_at
   end
 
-  def opening?
+  def opening? # Tide時間であるかの確認
     self.started? && self.unfinished?
   end
 
-  def finished?
+  def finished? # Tide時間が過ぎている
     Time.now >= self.low_end_at
   end
 
-  def unfinished?
+  def unfinished? # Tide時間が過ぎていない確認
     !self.finished?
   end
 
@@ -31,6 +30,12 @@ class Tide < ApplicationRecord
     def today_params
       now = Time.now
       return { year: now.year, month: now.month, day: now.day }
+    end
+
+    def find_closest
+      tides = self.refresh_and_find_todays
+      unfinisheds = tides.select(&:unfinished?)
+      return unfinisheds.first
     end
 
     def refresh_and_find_todays
@@ -125,30 +130,55 @@ class Tide < ApplicationRecord
         #     low_end_min: 30
         #   )
         # )
-      Tide.find_by(
+        Tide.find_by(
           today_params.merge(
-            low_start_hour: 0,
+            low_start_hour: 7,
             low_start_min: 0,
             low_end_hour: 23,
-            low_end_min: 59
+            low_end_min: 0
           )
         ) || Tide.create(
           today_params.merge(
-            low_start_hour: 0,
+            low_start_hour: 7,
             low_start_min: 0,
             low_end_hour: 23,
-            low_end_min: 59
+            low_end_min: 0
           )
         )
-      ]
-      return tides
-    end
+      ] if !Rails.env.test?
 
-    def find_closest
-      tides = self.refresh_and_find_todays
-      unfinisheds = tides.select(&:unfinished?)
-      # binding.pry
-      return unfinisheds.first
+      # test_tides = [
+      #   Tide.find_by(
+      #     today_params.merge(
+      #       low_start_hour: 7,
+      #       low_start_min: 0,
+      #       low_end_hour: 12,
+      #       low_end_min: 30
+      #     )
+      #   ) || Tide.create(
+      #         today_params.merge(
+      #           low_start_hour: 7,
+      #           low_start_min: 0,
+      #           low_end_hour: 12,
+      #           low_end_min: 30
+      #         )
+      #       ),
+      #       Tide.find_by(
+      #         today_params.merge(
+      #           low_start_hour: 12,
+      #           low_start_min: 30,
+      #           low_end_hour: 23,
+      #           low_end_min: 30
+      #         )
+      #       ) || Tide.create(
+      #              today_params.merge(
+      #               low_start_hour: 12,
+      #               low_start_min: 30,
+      #               low_end_hour: 23,
+      #               low_end_min: 30
+      #              )
+      #           )
+      # ] if Rails.env.test?
     end
   end
 end
