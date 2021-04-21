@@ -1,33 +1,24 @@
-<h1>ブログ一覧</h1>
-
 <%= search_form_for @q do |f| %>
   <%= f.label :title_or_content, "Keyword" %>
   <%= f.search_field :title_or_content_cont %>
-
   <%= f.submit "検索", id: "search_button" %>
 <% end %>
-
-<table>
-  <tr>
-    <th><%= sort_link(@q, :title, "タイトル") %></th>
-    <th><%= sort_link(@q, :content, "内容") %></th>
-    <th>画像</th>
-    <th colspan="3"></th>
-  </tr>
-  <% @blogs.each do |blog| %>
-    <tr>
-      <td><%= blog.title %></td>
-      <td><%= blog.content %></td>
-      <% if blog.image.present? %>
-        <td><%= image_tag blog.image.url %></td>
-      <% end %>
-      <td><%= link_to '詳細を確認する', blog_path(blog.id), id: "show_blog" %></td>
-      <% if current_user && blog.user_id == current_user.id %>
-        <td><%= link_to 'ブログを編集する', edit_blog_path(blog.id) %></td>
-        <td><%= link_to 'ブログを削除する', blog_path(blog.id), method: :delete, data: {confirm: '削除しますか？' } %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
-<br>
+    <div class="card-columns">
+      <% @blogs.each do |blog| %>     
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= blog.title %></h5>
+            <p class="card-text"><%= blog.content %></p>
+            <% if blog.image.present? %>
+              <td><%= image_tag blog.image.url %></td>
+            <% end %>
+            <%= link_to '詳細を確認する', blog_path(blog.id), id: "show_blog" %>
+            <% if current_user && blog.user_id == current_user.id %>
+              <%= link_to 'ブログを編集する', edit_blog_path(blog.id) %>
+              <%= link_to 'ブログを削除する', blog_path(blog.id), method: :delete, data: {confirm: '削除しますか？' } %>
+            <% end %>
+          </div>
+        </div>
+      <% end %> 
+    </div>
 <%= link_to '新しくブログを投稿する', new_blog_path, id: "create_new_blog" %>
