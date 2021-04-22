@@ -2,7 +2,6 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
   before_action :check_tide, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
-  # before_action :destroy_all, only: [:index]
   def index
     @tide = Tide.find_closest
     @blogs = @tide.blogs
@@ -61,6 +60,6 @@ class BlogsController < ApplicationController
   end
 
   def check_tide
-    redirect_to tides_path, notice: 'ブログは削除されました' unless @blog.tide.opening?
+    redirect_to tides_path, notice: 'ブログは削除されました' unless @blog.tide.opening? || current_user.admin == true
   end
 end

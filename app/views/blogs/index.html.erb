@@ -12,10 +12,10 @@
             <% if blog.image.present? %>
               <td><%= image_tag blog.image.url %></td>
             <% end %>
-            <%= link_to '詳細を確認する', blog_path(blog.id), id: "show_blog" %>
+            <i class="fas fa-grin-squint-tears"></i><i class="far fa-comments fa-fw"><i class="far fa-grin-squint-tears"></i></i><%= link_to "Let's talk", blog_path(blog.id), id: "show_blog" %>
             <% if current_user && blog.user_id == current_user.id %>
-              <%= link_to 'ブログを編集する', edit_blog_path(blog.id) %>
-              <%= link_to 'ブログを削除する', blog_path(blog.id), method: :delete, data: {confirm: '削除しますか？' } %>
+            <i class="far fa-edit fa-fw"></i><%= link_to '編集する', edit_blog_path(blog.id) %>
+            <i class="far fa-trash-alt fa-fw"></i><%= link_to '削除する', blog_path(blog.id), method: :delete, data: {confirm: '削除しますか？' } %>
             <% end %>
           </div>
         </div>
