@@ -1,11 +1,20 @@
-// Place all the styles related to the blogs controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-.card-columns {
+/* .card-columns {
   @include media-breakpoint-only(lg) {
     column-count: 4;
   }
   @include media-breakpoint-only(xl) {
     column-count: 5;
   }
+} */
+
+.top-menu {
+  margin-top: 50px;
+}
+
+#blog_search {
+  float: right;
+}
+
+.card-columns {
+  margin-top: 50px;
 }
