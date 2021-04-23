@@ -15,4 +15,7 @@
   <%= render partial: 'comments/index', locals: {comments: @comments, blog: @blog} %>
 </div>
 <%= render partial: 'comments/form', locals: { comment: @comment, blog: @blog } %>
-<%= link_to '戻る', blogs_path %>
+<br>
+<%= link_to blogs_path do %>
+  <i class="fas fa-sign-out-alt fa-flip-horizontal fa-2x"></i>
+<% end %>
