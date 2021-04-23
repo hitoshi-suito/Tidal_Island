@@ -43,4 +43,5 @@ group :test do
   gem 'webdrivers'
 end
 
+gem "bootstrap_form", "~> 4.0"
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
