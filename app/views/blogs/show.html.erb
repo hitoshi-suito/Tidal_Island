@@ -5,7 +5,12 @@
 <% if @blog.image.present? %>
   <p>画像: <%= image_tag @blog.image.url %></p>
 <% end %>
-<p>---コメント---</p>
+<br>
+
+<i class="fas fa-users fa-2x"></i>
+<i class="far fa-comments fa-2x faa-bounce animated"></i>
+<i class="fas fa-users fa-2x"></i>
+
 <div id="comments_area">
   <%= render partial: 'comments/index', locals: {comments: @comments, blog: @blog} %>
 </div>

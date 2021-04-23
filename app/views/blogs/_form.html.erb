@@ -1,6 +1,4 @@
-<%#= form_with(model: @blog, local: true) do |form| %>
 <%= bootstrap_form_with(model: @blog, local: true) do |form| %>
-
   <% if @blog.errors.any? %>
     <div id="error_explanation">
       <h2><%= @blog.errors.count %>件のエラーがあります。</h2>
@@ -11,25 +9,15 @@
       </ul>
     </div>
   <% end %>
-  
 
-    <%= form.text_field :title %>
+  <%= form.text_field :title %>
 
+  <%= form.text_field :content %>
 
-    <%= form.text_field :content %>
+  <%= form.file_field :image %>
 
-
-
-
-
-    <%= form.file_field :image %>
-
-
-  
   <%= form.submit "ブログ作成", id: "create_blog" %>
-  <br>
-  <br>
-  <%= link_to 'トップページ', blogs_path %>
+  
 <% end %>
 
 <style>

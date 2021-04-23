@@ -6,9 +6,13 @@
         <p><%= "#{comment.user.name}" + "さんのコメント" %></p>
         <p><%= comment.content %></p>
         <% if user_signed_in? && comment.user_id == current_user.id %>
-          <p><%= link_to "コメント編集", edit_blog_comment_path(blog, comment), remote: true, id: "edit_comment" %></p>
-          <p><%= link_to "コメント削除", blog_comment_path(comment.blog_id, comment.id), method: :delete, remote: true,
-                                       id: "delete_comment", data: { confirm: "本当に削除しますか?"} %></p>
+          <%= link_to edit_blog_comment_path(blog, comment), remote: true, id: "edit_comment" do %>
+            <i class="fas fa-user-edit"></i>
+          <% end %>
+          <%= link_to blog_comment_path(comment.blog_id, comment.id), method: :delete, remote: true,
+                                       id: "delete_comment", data: { confirm: "本当に削除しますか?"} do %>
+                                       <i class="far fa-trash-alt"></i>
+          <% end %>
         <% end %>
       </li>
     <% end %>
