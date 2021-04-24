@@ -4,7 +4,8 @@ RSpec.describe Comment, type: :model do
   describe 'バリデーションのテスト' do
     context 'コメントのコンテントが空の場合' do
       it 'バリデーションにひっかかる' do
-        comment = Comment.new(content: '')
+        user = FactoryBot.create(:normal_user)
+        comment = Comment.new(content: '', user_id: user.id)
         expect(comment).not_to be_valid
       end
     end
@@ -12,15 +13,8 @@ RSpec.describe Comment, type: :model do
       it 'バリデーションが通る' do
         user = FactoryBot.create(:normal_user)
         tide = FactoryBot.create(:tide)
-        blog = Blog.new(content: 'blog')
-        # binding.pry
-        blog.user_id = user.id
-        blog.tide_id = tide.id
-        blog.save
-        comment = Comment.new(content: 'comment')
-        comment.user_id = user.id
-        comment.blog_id = blog.id
-        # binding.pry
+        blog = FactoryBot.create(:blog, title: "test_blog", content: "test_blog", user_id: user.id, tide_id: tide.id)
+        comment = Comment.new(content: 'comment', user_id: user.id, blog_id: blog.id)
         expect(comment).to be_valid
       end
     end

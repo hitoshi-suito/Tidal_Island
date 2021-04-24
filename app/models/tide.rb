@@ -1,33 +1,33 @@
 class Tide < ApplicationRecord
   has_many :blogs, dependent: :destroy
 
-  def low_start_at
+  def low_start_at # tides#index訪問時の時刻をインスタンス化
     Time.mktime(self.year, self.month, self.day, self.low_start_hour, self.low_start_min)
   end
 
-  def low_end_at
+  def low_end_at # tides#index訪問時の時刻をインスタンス化
     Time.mktime(self.year, self.month, self.day, self.low_end_hour, self.low_end_min)
   end
 
-  def started? # Tide時間が開始しているか確認
+  def started? #ログイン可能かどうかの確認
     Time.now >= self.low_start_at
   end
 
-  def opening? # Tide時間であるかの確認
+  def opening? #ログイン可能時間中
     self.started? && self.unfinished?
   end
 
-  def finished? # Tide時間が過ぎている
+  def finished? #ログイン終了かどうかの確認
     Time.now >= self.low_end_at
   end
 
-  def unfinished? # Tide時間が過ぎていない確認
+  def unfinished?
     !self.finished?
   end
 
   class << self
 
-    def today_params
+    def today_params #現在の年月日
       now = Time.now
       return { year: now.year, month: now.month, day: now.day }
     end
@@ -36,149 +36,132 @@ class Tide < ApplicationRecord
       tides = self.refresh_and_find_todays
       unfinisheds = tides.select(&:unfinished?)
       return unfinisheds.first
+      # binding.pry
     end
 
     def refresh_and_find_todays
       tides = [
-        # Tide.find_by(
-        #   today_params.merge(
-        #     low_start_hour: 0,
-        #     low_start_min: 30,
-        #     low_end_hour: 1,
-        #     low_end_min: 0
-        #   )
-        # ) || Tide.create(
-        #   today_params.merge(
-        #     low_start_hour: 0,
-        #     low_start_min: 30,
-        #     low_end_hour: 1,
-        #     low_end_min: 0
-        #   )
-        # ),
-        # Tide.find_by(
-        #   today_params.merge(
-        #     low_start_hour: 4,
-        #     low_start_min: 0,
-        #     low_end_hour: 4,
-        #     low_end_min: 30
-        #   )
-        # ) || Tide.create(
-        #   today_params.merge(
-        #     low_start_hour: 4,
-        #     low_start_min: 0,
-        #     low_end_hour: 4,
-        #     low_end_min: 30
-        #   )
-        # ),
-        # Tide.find_by(
-        #   today_params.merge(
-        #     low_start_hour: 7,
-        #     low_start_min: 0,
-        #     low_end_hour: 7,
-        #     low_end_min: 30
-        #   )
-        # ) || Tide.create(
-        #   today_params.merge(
-        #     low_start_hour: 7,
-        #     low_start_min: 0,
-        #     low_end_hour: 7,
-        #     low_end_min: 30
-        #   )
-        # ),
-        # Tide.find_by(
-        #   today_params.merge(
-        #     low_start_hour: 12,
-        #     low_start_min: 0,
-        #     low_end_hour: 12,
-        #     low_end_min: 30
-        #   )
-        # ) || Tide.create(
-        #   today_params.merge(
-        #     low_start_hour: 12,
-        #     low_start_min: 0,
-        #     low_end_hour: 12,
-        #     low_end_min: 30
-        #   )
-        # ),
-        # Tide.find_by(
-        #   today_params.merge(
-        #     low_start_hour: 17,
-        #     low_start_min: 0,
-        #     low_end_hour: 17,
-        #     low_end_min: 30
-        #   )
-        # ) || Tide.create(
-        #   today_params.merge(
-        #     low_start_hour: 17,
-        #     low_start_min: 0,
-        #     low_end_hour: 17,
-        #     low_end_min: 30
-        #   )
-        # ),
-        # Tide.find_by(
-        #   today_params.merge(
-        #     low_start_hour: 19,
-        #     low_start_min: 0,
-        #     low_end_hour: 19,
-        #     low_end_min: 30
-        #   )
-        # ) || Tide.create(
-        #   today_params.merge(
-        #     low_start_hour: 19,
-        #     low_start_min: 0,
-        #     low_end_hour: 19,
-        #     low_end_min: 30
-        #   )
-        # )
+        Tide.find_by(
+          today_params.merge(
+            low_start_hour: 0,
+            low_start_min: 30,
+            low_end_hour: 1,
+            low_end_min: 0
+          )
+        ) || Tide.create(
+          today_params.merge(
+            low_start_hour: 0,
+            low_start_min: 30,
+            low_end_hour: 1,
+            low_end_min: 0
+          )
+        ),
+        Tide.find_by(
+          today_params.merge(
+            low_start_hour: 4,
+            low_start_min: 0,
+            low_end_hour: 4,
+            low_end_min: 30
+          )
+        ) || Tide.create(
+          today_params.merge(
+            low_start_hour: 4,
+            low_start_min: 0,
+            low_end_hour: 4,
+            low_end_min: 30
+          )
+        ),
         Tide.find_by(
           today_params.merge(
             low_start_hour: 7,
             low_start_min: 0,
-            low_end_hour: 23,
-            low_end_min: 50
+            low_end_hour: 7,
+            low_end_min: 30
           )
         ) || Tide.create(
           today_params.merge(
             low_start_hour: 7,
             low_start_min: 0,
+            low_end_hour: 7,
+            low_end_min: 30
+          )
+        ),
+        Tide.find_by(
+          today_params.merge(
+            low_start_hour: 12,
+            low_start_min: 0,
+            low_end_hour: 12,
+            low_end_min: 30
+          )
+        ) || Tide.create(
+          today_params.merge(
+            low_start_hour: 12,
+            low_start_min: 0,
+            low_end_hour: 12,
+            low_end_min: 30
+          )
+        ),
+        Tide.find_by(
+          today_params.merge(
+            low_start_hour: 17,
+            low_start_min: 0,
+            low_end_hour: 17,
+            low_end_min: 30
+          )
+        ) || Tide.create(
+          today_params.merge(
+            low_start_hour: 17,
+            low_start_min: 0,
+            low_end_hour: 17,
+            low_end_min: 30
+          )
+        ),
+        Tide.find_by(
+          today_params.merge(
+            low_start_hour: 19,
+            low_start_min: 0,
+            low_end_hour: 19,
+            low_end_min: 30
+          )
+        ) || Tide.create(
+          today_params.merge(
+            low_start_hour: 19,
+            low_start_min: 0,
+            low_end_hour: 19,
+            low_end_min: 30
+          )
+        ),
+        Tide.find_by(
+          today_params.merge(
+            low_start_hour: 22,
+            low_start_min: 8,
+            low_end_hour: 22,
+            low_end_min: 15
+          )
+        ) || Tide.create(
+          today_params.merge(
+            low_start_hour: 22,
+            low_start_min: 8,
+            low_end_hour: 22,
+            low_end_min: 15
+          )
+        ),
+        Tide.find_by(
+          today_params.merge(
+            low_start_hour: 23,
+            low_start_min: 58,
             low_end_hour: 23,
-            low_end_min: 50
+            low_end_min: 59
+          )
+        ) || Tide.create(
+          today_params.merge(
+            low_start_hour: 23,
+            low_start_min: 58,
+            low_end_hour: 23,
+            low_end_min: 59
           )
         )
-    ] #if !Rails.env.test?
-
-      # test_tides = [
-      #   Tide.find_by(
-      #     today_params.merge(
-      #       low_start_hour: 7,
-      #       low_start_min: 0,
-      #       low_end_hour: 12,
-      #       low_end_min: 30
-      #     )
-      #   ) || Tide.create(
-      #         today_params.merge(
-      #           low_start_hour: 7,
-      #           low_start_min: 0,
-      #           low_end_hour: 12,
-      #           low_end_min: 30
-      #         )
-      #       ),
-      #       Tide.find_by(
-      #         today_params.merge(
-      #           low_start_hour: 12,
-      #           low_start_min: 30,
-      #           low_end_hour: 23,
-      #           low_end_min: 30
-      #         )
-      #       ) || Tide.create(
-      #              today_params.merge(
-      #               low_start_hour: 12,
-      #               low_start_min: 30,
-      #               low_end_hour: 23,
-      #               low_end_min: 30
-      #              )
-      #           )
-      # ] if Rails.env.test?
+      ]
     end
   end
 end
