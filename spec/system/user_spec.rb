@@ -14,7 +14,7 @@ RSpec.describe 'ユーザ機能', type: :system do
     end
   end
   describe 'ログイン機能' do
-    context 'ログイン画面に遷移した場合' do
+    context 'ログイン画面で必要項目を入力した場合' do
       it 'ログインできる' do
         user = FactoryBot.create(:test_user)
         visit new_user_session_path
@@ -22,6 +22,17 @@ RSpec.describe 'ユーザ機能', type: :system do
         fill_in 'user_password', with: 'testtest'
         click_on 'login_submit'
         expect(page).to have_content 'ログインしました'
+      end
+    end
+    context '指定時間以外にログインしようとした場合' do
+      it 'ログインできない' do
+        user = FactoryBot.create(:test_user)
+        visit new_user_session_path
+        fill_in 'user_email', with: 'test@example.com'
+        fill_in 'user_password', with: 'testtest'
+        click_on 'login_submit'
+        click_on 'blogs_index_button'
+        expect(page).to have_css('#top_image')
       end
     end
   end
