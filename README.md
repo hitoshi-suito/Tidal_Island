@@ -1,5 +1,5 @@
 # アプリ名  
-Tidal Island
+## Tidal Island
 
 # 製品概要
 コミュニティが成立するには、人がその場に居合わせるための「空間」と「時間」が必要です。  
@@ -48,7 +48,6 @@ https://cacoo.com/diagrams/Aq0bVb0Sgl4fJ9br/1635F
 * factory_bot_rails
 * capybara
 * webdrivers
-* letter_opener_web
 
 # 就業タームから使用する技術
 * コメント機能（編集や削除もできること。投稿失敗時にエラーメッセージをAjaxで出力すること）
