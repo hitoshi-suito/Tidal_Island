@@ -20,6 +20,7 @@ gem 'mimemagic', '0.3.7'
 gem 'ransack'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
