@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <p>投稿ユーザ: <%= @blog.user.name %></p>
 <p>タイトル: <%= @blog.title %></p>
-<p>内容: <%= @blog.content %></p>
+<p id="blog_content">内容: <%= @blog.content %></p>
 <% if @blog.image.present? %>
   <p>画像: <%= image_tag @blog.image.url %></p>
 <% end %>
