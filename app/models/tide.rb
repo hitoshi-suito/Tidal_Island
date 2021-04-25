@@ -131,21 +131,21 @@ class Tide < ApplicationRecord
             low_end_min: 30
           )
         ),
-        Tide.find_by(
-          today_params.merge(
-            low_start_hour: 22,
-            low_start_min: 8,
-            low_end_hour: 22,
-            low_end_min: 15
-          )
-        ) || Tide.create(
-          today_params.merge(
-            low_start_hour: 22,
-            low_start_min: 8,
-            low_end_hour: 22,
-            low_end_min: 15
-          )
-        ),
+        # Tide.find_by(
+        #   today_params.merge(
+        #     low_start_hour: 22,
+        #     low_start_min: 8,
+        #     low_end_hour: 22,
+        #     low_end_min: 15
+        #   )
+        # ) || Tide.create(
+        #   today_params.merge(
+        #     low_start_hour: 22,
+        #     low_start_min: 8,
+        #     low_end_hour: 22,
+        #     low_end_min: 15
+        #   )
+        # ),
         Tide.find_by(
           today_params.merge(
             low_start_hour: 23,
