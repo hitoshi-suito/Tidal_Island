@@ -4,6 +4,7 @@ class BlogsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   def index
     @tide = Tide.find_closest
+    # binding.pry
     @blogs = @tide.blogs
     @q = @tide.blogs.ransack(params[:q])
     @blogs = @q.result(distinct: true)

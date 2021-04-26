@@ -5,6 +5,8 @@ class CreateTides < ActiveRecord::Migration[5.2]
       t.integer :low_start_min
       t.integer :low_end_hour
       t.integer :low_end_min
+      t.integer :low_start_second
+      t.integer :low_end_second
       t.integer :year
       t.integer :month
       t.integer :day
@@ -17,6 +19,8 @@ class CreateTides < ActiveRecord::Migration[5.2]
       :low_start_min,
       :low_end_hour,
       :low_end_min,
+      :low_start_second,
+      :low_end_second,
       :year,
       :month,
       :day,

@@ -1,7 +1,7 @@
 class Tide < ApplicationRecord
   has_many :blogs, dependent: :destroy
 
-  def low_start_at # tides#index訪問時の時刻をインスタンス化
+  def low_start_at # tides#index訪問時の、メソッドrefresh_and_find_todaysによる、tide開始時刻のインスタンス化
     Time.mktime(self.year, self.month, self.day, self.low_start_hour, self.low_start_min)
   end
 
@@ -9,19 +9,20 @@ class Tide < ApplicationRecord
     Time.mktime(self.year, self.month, self.day, self.low_end_hour, self.low_end_min)
   end
 
-  def started? #ログイン可能かどうかの確認
+  def started? #現在時刻が、ログイン可能時刻にあるかどうかの確認
     Time.now >= self.low_start_at
   end
 
-  def opening? #ログイン可能時間中
+  def opening? #ログイン可能時間中かの確認
     self.started? && self.unfinished?
+    # binding.pry
   end
 
-  def finished? #ログイン終了かどうかの確認
+  def finished? #現在時刻が、ログイン終了時刻を過ぎているかどうかの確認
     Time.now >= self.low_end_at
   end
 
-  def unfinished?
+  def unfinished? #ログイン時刻が終了していないことの確認
     !self.finished?
   end
 
@@ -32,14 +33,14 @@ class Tide < ApplicationRecord
       return { year: now.year, month: now.month, day: now.day }
     end
 
-    def find_closest
+    def find_closest #全ての指定時間帯(tides)からまだ終わっていない時間帯のものを取り出し、その上で直近のものを抽出する
       tides = self.refresh_and_find_todays
       unfinisheds = tides.select(&:unfinished?)
       return unfinisheds.first
       # binding.pry
     end
 
-    def refresh_and_find_todays
+    def refresh_and_find_todays #インスタンス作成済みの指定時間帯のtideを探し、作成されていなければその指定時間帯のインスタンスを作成する
       tides = [
         Tide.find_by(
           today_params.merge(
@@ -133,14 +134,14 @@ class Tide < ApplicationRecord
         ),
         # Tide.find_by(
         #   today_params.merge(
-        #     low_start_hour: 22,
+        #     low_start_hour: 10,
         #     low_start_min: 8,
         #     low_end_hour: 22,
         #     low_end_min: 15
         #   )
         # ) || Tide.create(
         #   today_params.merge(
-        #     low_start_hour: 22,
+        #     low_start_hour: 10,
         #     low_start_min: 8,
         #     low_end_hour: 22,
         #     low_end_min: 15
@@ -149,16 +150,20 @@ class Tide < ApplicationRecord
         Tide.find_by(
           today_params.merge(
             low_start_hour: 23,
-            low_start_min: 58,
+            low_start_min: 59,
+            low_start_second: 58,
             low_end_hour: 23,
-            low_end_min: 59
+            low_end_min: 59,
+            low_end_second: 59
           )
         ) || Tide.create(
           today_params.merge(
             low_start_hour: 23,
-            low_start_min: 58,
+            low_start_min: 59,
+            low_start_second: 58,
             low_end_hour: 23,
-            low_end_min: 59
+            low_end_min: 59,
+            low_end_second: 59
           )
         )
       ]
