@@ -37,6 +37,14 @@ RSpec.describe 'ブログ機能', type: :system do
     end
   end
   describe 'コメント機能' do
+    context 'ブログの詳細画面に遷移した場合' do
+      it '詳細画面が表示される' do
+        create_admin_user_and_fill_in_blog
+        click_on 'create_blog'
+        click_on 'show_blog'
+        expect(page).to have_content '投稿ユーザ'
+      end
+    end
     context 'コメントを投稿した場合' do
       it 'コメントが表示される' do
         create_admin_user_and_fill_in_blog
@@ -70,7 +78,7 @@ RSpec.describe 'ブログ機能', type: :system do
         click_on 'create_blog'
         fill_in 'q_title_or_content_cont', with: 'test'
         click_on 'search_button'
-        expect(page).to have_content 'test'
+        expect(page).not_to have_content 'aaa' 
       end
     end
   end
