@@ -3,6 +3,7 @@ ja:
     models:
       blog: ブログ
       user: ユーザー
+      comment: コメント
     attributes:
       blog:
         title: タイトル
