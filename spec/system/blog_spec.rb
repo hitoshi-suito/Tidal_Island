@@ -72,13 +72,30 @@ RSpec.describe 'ブログ機能', type: :system do
     end
   end
   describe 'ブログ検索機能' do
-    context 'ブログをあいまい検索した場合' do
+    context '投稿済みのブログをあいまい検索した場合' do
       it '検索結果が表示される' do
         create_admin_user_and_fill_in_blog
         click_on 'create_blog'
-        fill_in 'q_title_or_content_cont', with: 'test'
+        visit new_blog_path
+        fill_in 'blog_title', with: '検索対象のblog_title'
+        fill_in 'blog_content', with: '検索対象のblog_content'
+        click_on 'create_blog'
+        fill_in 'q_title_or_content_cont', with: '検索対象のblog_content'
         click_on 'search_button'
-        expect(page).not_to have_content 'aaa' 
+        expect(page).to have_content '検索対象のblog_content' 
+      end
+    end
+    context '未投稿のブログをあいまい検索した場合' do
+      it '検索結果が表示されない' do
+        create_admin_user_and_fill_in_blog
+        click_on 'create_blog'
+        visit new_blog_path
+        fill_in 'blog_title', with: '検索対象のblog_title'
+        fill_in 'blog_content', with: '検索対象のblog_content'
+        click_on 'create_blog'
+        fill_in 'q_title_or_content_cont', with: '未投稿のblog'
+        click_on 'search_button'
+        expect(page).not_to have_content '未投稿のblog'
       end
     end
   end
