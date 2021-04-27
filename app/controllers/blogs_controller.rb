@@ -4,7 +4,6 @@ class BlogsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   def index
     @tide = Tide.find_closest
-    # binding.pry
     @blogs = @tide.blogs
     @q = @tide.blogs.ransack(params[:q])
     @blogs = @q.result(distinct: true)
@@ -61,6 +60,6 @@ class BlogsController < ApplicationController
   end
 
   def check_tide
-    redirect_to tides_path, notice: 'ブログは削除されました' unless @blog.tide.opening? || current_user.admin == true
+    redirect_to tides_path, notice: 'ブログは削除されました' unless @blog.tide.opening? #|| current_user.admin == true
   end
 end
