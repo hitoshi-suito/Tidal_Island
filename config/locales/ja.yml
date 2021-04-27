@@ -108,6 +108,7 @@ ja:
   errors:
     format: "%{attribute}%{message}"
     messages:
+      count: 件のエラーがあります。
       accepted: を受諾してください
       blank: を入力してください
       confirmation: と%{attribute}の入力が一致しません
@@ -144,6 +145,7 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+      blog_create: ブログ作成
   number:
     currency:
       format:

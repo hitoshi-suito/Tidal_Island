@@ -1,4 +1,4 @@
-20.times do |n|
+10.times do |n|
   name = Faker::Name.name 
   email = Faker::Internet.email
   password = "password"
@@ -17,6 +17,14 @@ User.create!(
   admin: true
 )
 
+User.create!( 
+  name:  "admin2_user",
+  email: "admin2@example.com",
+  password: "admin2",
+  password_confirmation: "admin2",
+  admin: true
+)
+
 user = User.create!(
   name:  "normal_user",
   email: "normal@example.com",
@@ -28,14 +36,22 @@ user = User.create!(
 tide = Tide.find_closest
 
 Blog.create!(
-  title: "aaa",
-  content: "bbb",
+  title: "おやつはやっぱり",
+  content: "チョコレート",
   user_id: user.id,
   tide_id: tide.id
 )
 
-# 5.times do |n|
-#   title = Faker::Movie.title
-#   content = 
+Blog.create!(
+  title: "このあとガッツリ",
+  content: "勉強する！！",
+  user_id: user.id,
+  tide_id: tide.id
+)
 
-# )
+Blog.create!(
+  title: "オススメの場所シェアしよ〜",
+  content: "私は実家",
+  user_id: user.id,
+  tide_id: tide.id
+)
