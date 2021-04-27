@@ -60,6 +60,6 @@ class BlogsController < ApplicationController
   end
 
   def check_tide
-    redirect_to tides_path, notice: 'ブログは削除されました' unless @blog.tide.opening? #|| current_user.admin == true
+    redirect_to tides_path, notice: 'ブログは削除されました' unless @blog.tide.opening? || current_user.admin == true
   end
 end
